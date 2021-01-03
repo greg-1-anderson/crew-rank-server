@@ -2,28 +2,95 @@
 #
 # https://gqlgen.com/getting-started/
 
-type Todo {
-  id: ID!
-  text: String!
-  done: Boolean!
-  user: User!
-  notes: [String!]!
-}
-
-type User {
-  id: ID!
-  name: String!
-}
-
 type Query {
-  todos: [Todo!]!
+  crewRank: CrewRank!
 }
 
-input NewTodo {
-  text: String!
-  userId: String!
+# The CrewRank server reports on the score from a game
+type CrewRank {
+  # A ladder is an ordered list of players with stats
+  ladder: [PlayerAggragateStats!]!
 }
 
-type Mutation {
-  createTodo(input: NewTodo!): Todo!
+# Player stats report the aggregated results of one player
+type PlayerAggragateStats {
+  name: String!
+  overall: OverallStats!
+  imposter: ImposterStats!
+  crewmate: CrewmateStats!
 }
+
+# Stats that can be calculated from other fields; provided as a service
+type OverallStats {
+  games: AggragateStats!  
+}
+
+# Imposter stats report the results from games where 
+# the player was the imposter
+type ImposterStats {
+  games: AggragateStats!
+  # Total number of crewmates killed across all games 
+  # (can't be determined yet)
+  # totalKills: Int!
+  # Imposter voting record
+  # (can't be determined yet)
+  # votes: ImposterVoteStats!
+}
+
+# Crewmate stats report the results from games where 
+# the player was a crewmate
+type CrewmateStats {
+  games: AggragateStats!
+  # Number of games where crewmate survived to the end
+  # (can't be determined yet)
+  # survived: Int!
+  # Crewmate voting record
+  # (can't be determined yet)  
+  # votes: CrewmateVoteStats!
+}
+
+type AggragateStats {
+  won: Int!
+  lost: Int!
+  total: Int!
+}
+
+# type CrewmateVoteStats {
+#   # Voted for the imposter (successful or not)
+#   correct: Int!
+#   # Voted for someone who was not the imposter 
+#   # (regardless of whether or not they were ejected as a result)
+#   incorrect: Int!
+#   # Number of times voted that no one should be ejected
+#   skipped: Int!
+#   # Number of times no vote was cast
+#   abstained: Int!
+#   # Voted to eject the imposter when vote was successful
+#   caught: Int!
+#   # Voted to for an innocent crewmate who was ejected as a result
+#   murdered: Int!
+#   # Voted to skip when one fewer "skip" votes would have ejected
+#   # ejected an innocent
+#   saved: Int!
+#   # Voted to skip when one fewer "skip" votes would have ejected
+#   # an imposter
+#   inError: Int!
+#   total: Int!
+# }
+
+# type ImposterVoteStats {
+#   # Voted to skip when one fewer "skip" votes would have ejected
+#   # an innocent
+#   mercy: Int!
+#   # Voted to skip when one fewer "skip" votes would have ejected
+#   # a partner imposter
+#   saved: Int!
+#   # Voted for a crewmate whose vote count ties one of the imposters
+#   blocked: Int!
+#   # Voted to for an innocent crewmate who was ejected as a result
+#   murdered: Int!
+#   # Voted to eject their partner without causing them to be ejected
+#   bold: Int!
+#   # Successfully voted to eject their partner
+#   trecherous: Int! 
+# }
