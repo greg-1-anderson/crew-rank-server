@@ -10,29 +10,8 @@ import (
 )
 
 func (r *queryResolver) CrewRank(ctx context.Context) (*model.CrewRank, error) {
-	ladder := []*model.PlayerAggragateStats{}
-
-	ladder = append(
-		ladder,
-		playerAggrageteStats(
-			"The Dead Body",
-			&model.ImposterStats{
-				Games: &model.AggragateStats{
-					Won:  10,
-					Lost: 50,
-				},
-			},
-			&model.CrewmateStats{
-				Games: &model.AggragateStats{
-					Won:  40,
-					Lost: 10,
-				},
-			},
-		),
-	)
-
 	return &model.CrewRank{
-		Ladder: ladder,
+		Ladder: mockLadder(),
 	}, nil
 }
 
