@@ -1,6 +1,3 @@
-# GraphQL schema example
-#
-# https://gqlgen.com/getting-started/
 
 type Query {
   crewRank: CrewRank!
@@ -53,6 +50,7 @@ type AggragateStats {
   won: Int!
   lost: Int!
   total: Int!
+  ratio: Float! # won : total
 }
 
 # type CrewmateVoteStats {

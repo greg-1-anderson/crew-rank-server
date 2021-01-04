@@ -5,5 +5,5 @@ certs
 crew-rank-server
 
 # gqlgen generated files
-pkg/graph/generated
-pkg/graph/model/models_gen.go
+graph/generated
+graph/model/models_gen.go
