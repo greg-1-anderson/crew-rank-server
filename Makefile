@@ -20,6 +20,9 @@ create-production-certs:
 show-certificate:
 	openssl x509 -in certs/crewrank.crt -text
 
+run:
+	go run server.go
+
 deploy:
 	env GOOS=linux GOARCH=amd64 go build 
 	scp -r certs crew-rank-server ga@radium.greenknowe.org:/home/ga

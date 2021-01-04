@@ -1,14 +1,14 @@
 # Crew Rank Server
 
-# Running
+## Running
 
 ```
 $ make generate
 $ make create-non-production-certs
-$ go run server.go
+$ make run
 ```
 
-# Sample Query
+## Sample Query
 
 ```
 query {
@@ -17,6 +17,7 @@ query {
       name
       overall {
         games {
+          ratio
           won
           lost
           total
@@ -24,6 +25,7 @@ query {
       }
       imposter {
         games {
+          ratio
           won
           lost
           total
@@ -31,6 +33,7 @@ query {
       }
       crewmate {
         games {
+          ratio
           won
           lost
           total
