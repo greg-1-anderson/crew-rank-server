@@ -1,3 +1,9 @@
+# self-signed certificates
+certs
+
+# binary
+crew-rank-server
+
 # gqlgen generated files
 pkg/graph/generated
 pkg/graph/model/models_gen.go

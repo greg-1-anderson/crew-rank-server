@@ -4,6 +4,7 @@
 
 ```
 $ make generate
+$ make create-non-production-certs
 $ go run server.go
 ```
 

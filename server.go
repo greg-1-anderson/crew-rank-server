@@ -11,7 +11,7 @@ import (
 	"github.com/99designs/gqlgen/graphql/playground"
 )
 
-const defaultPort = "8080"
+const defaultPort = "8443"
 
 func main() {
 	port := os.Getenv("PORT")
@@ -24,6 +24,8 @@ func main() {
 	http.Handle("/", playground.Handler("GraphQL playground", "/query"))
 	http.Handle("/query", srv)
 
-	log.Printf("connect to http://localhost:%s/ for GraphQL playground", port)
-	log.Fatal(http.ListenAndServe(":"+port, nil))
+	log.Printf("connect to https://localhost:%s/ for GraphQL playground", port)
+	certFile := "certs/crewrank.crt"
+	keyFile := "certs/crewrank.key"
+	log.Fatal(http.ListenAndServeTLS(":"+port, certFile, keyFile, nil))
 }
